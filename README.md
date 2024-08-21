@@ -15,8 +15,12 @@ run the following in the terminal
 - `npm install`
 - `npm run dev`
 
-## add eslint plugin
+### add eslint plugin
 
 - run `npm install eslint vite-plugin-eslint eslint-config-react-app --save-dev` in terminal
 - create the `.eslintrc.json` file
 - reconfigure `vite.config.js` to add `"vite-plugin-eslint"`
+
+### add react-router library
+
+- run `npm install react-router-dom@6` in terminal
