@@ -1,0 +1,19 @@
+.nav {
+  background-color: cadetblue;
+}
+
+.nav ul {
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+}
+
+.nav :global(.active) {
+  color: green;
+}
+.nav li {
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: aliceblue;
+}
