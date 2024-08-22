@@ -1,28 +1,33 @@
 import { NavLink } from "react-router-dom";
 import styles from "./PageNav.module.css";
-import Logo from "./Logo";
 
-function PageNav() {
+import PropTypes from "prop-types";
+
+function PageNav({ navs = [], classname = styles.nav }) {
   return (
-    <nav className={styles.nav}>
+    <nav className={classname}>
       <ul>
-        <li>
-          <NavLink to="/">
-            <Logo></Logo>
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/product">Product</NavLink>
-        </li>
-        <li>
-          <NavLink to="/pricing">Pricing</NavLink>
-        </li>
-        <li>
-          <NavLink to="/login">Log In</NavLink>
-        </li>
+        {navs.map((nav, index) => (
+          <li key={index}>
+            <NavLink to={nav.to} className={nav.className}>
+              {nav.child}
+            </NavLink>
+          </li>
+        ))}
       </ul>
     </nav>
   );
 }
 
 export default PageNav;
+
+PageNav.propTypes = {
+  navs: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      child: PropTypes.object,
+      className: PropTypes.string,
+    })
+  ).isRequired,
+  classname: PropTypes.string,
+};
