@@ -13,6 +13,7 @@ run the following in the terminal
 
 - `cd worldwise`
 - `npm install`
+- `npm run server`
 - `npm run dev`
 
 ### add eslint plugin
@@ -24,3 +25,7 @@ run the following in the terminal
 ### add react-router library
 
 - run `npm install react-router-dom@6` in terminal
+
+### add json-server library
+
+- run `npm install json-server` in terminal
