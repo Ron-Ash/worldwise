@@ -20,6 +20,15 @@ const appNavs = [
   { to: "/login", child: "Log In", className: "cta " },
 ];
 
+const flagemojiToPNG = (flag) => {
+  var countryCode = Array.from(flag, (codeUnit) => codeUnit.codePointAt())
+    .map((char) => String.fromCharCode(char - 127397).toLowerCase())
+    .join("");
+  return (
+    <img src={`https://flagcdn.com/24x18/${countryCode}.png`} alt="flag" />
+  );
+};
+
 function App() {
   const [cities, setCities] = useState([]);
   const [countries, setCountries] = useState([]);
@@ -35,9 +44,12 @@ function App() {
       } catch (err) {
         console.log(err.message);
       }
-      setCities(data);
+      const processedData = data.map((city) => {
+        return { ...city, emoji: flagemojiToPNG(city.emoji) };
+      });
+      setCities(processedData);
       setCountries(
-        data.reduce(
+        processedData.reduce(
           (acc, city) =>
             acc.map((c) => c.country).includes(city.country)
               ? acc
