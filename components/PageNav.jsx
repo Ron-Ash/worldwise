@@ -24,8 +24,8 @@ export default PageNav;
 PageNav.propTypes = {
   navs: PropTypes.arrayOf(
     PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      child: PropTypes.object,
+      to: PropTypes.string.isRequired,
+      child: PropTypes.any,
       className: PropTypes.string,
     })
   ).isRequired,
