@@ -1,3 +1,6 @@
+import { useParams } from "react-router-dom";
+import PropTypes from "prop-types";
+
 import styles from "./City.module.css";
 
 const formatDate = (date) =>
@@ -8,16 +11,11 @@ const formatDate = (date) =>
     weekday: "long",
   }).format(new Date(date));
 
-function City() {
-  // TEMP DATA
-  const currentCity = {
-    cityName: "Lisbon",
-    emoji: "🇵🇹",
-    date: "2027-10-31T15:59:59.138Z",
-    notes: "My favorite city so far!",
-  };
-
-  const { cityName, emoji, date, notes } = currentCity;
+export default function City({ cities }) {
+  const { id } = useParams();
+  const city = cities.filter((city) => city.id === id);
+  city.length >= 1 ? city[0] : [];
+  const { cityName, emoji, date, notes } = city[0] ?? {};
 
   return (
     <div className={styles.city}>
@@ -51,11 +49,12 @@ function City() {
         </a>
       </div>
 
-      <div>
+      {/* <div>
         <ButtonBack />
-      </div>
+      </div> */}
     </div>
   );
 }
-
-export default City;
+City.propTypes = {
+  cities: PropTypes.array,
+};

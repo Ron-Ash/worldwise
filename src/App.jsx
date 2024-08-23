@@ -12,6 +12,7 @@ import Logo from "../components/Logo";
 
 import CityList from "../components/SideBar/CityList";
 import CountryList from "../components/SideBar/CountryList";
+import City from "../components/SideBar/City";
 
 const appNavs = [
   { to: "/", child: <Logo></Logo> },
@@ -82,6 +83,7 @@ function App() {
               path="cities"
               element={<CityList cities={cities} isLoading={isLoading} />}
             />
+            <Route path="cities/:id" element={<City cities={cities} />} />
             <Route
               path="countries"
               element={
