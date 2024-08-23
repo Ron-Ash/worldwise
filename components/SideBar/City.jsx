@@ -48,10 +48,6 @@ export default function City({ cities }) {
           Check out {cityName} on Wikipedia &rarr;
         </a>
       </div>
-
-      {/* <div>
-        <ButtonBack />
-      </div> */}
     </div>
   );
 }
