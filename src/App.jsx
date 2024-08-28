@@ -9,6 +9,7 @@ import NotFound from "../pages/NotFound";
 import Login from "../pages/Login";
 import Tracking from "../pages/Tracking";
 import Logo from "../components/Logo";
+import Form from "../components/Form";
 
 import CityList from "../components/SideBar/CityList";
 import CountryList from "../components/SideBar/CountryList";
@@ -90,7 +91,7 @@ function App() {
                 <CountryList countries={countries} isLoading={isLoading} />
               }
             />
-            <Route path="form" element={<p>Form</p>} />
+            <Route path="form" element={<Form />} />
           </Route>
           <Route path="*" element={<NotFound></NotFound>} />
         </Routes>
