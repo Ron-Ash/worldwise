@@ -76,7 +76,7 @@ function App() {
           <Route path="pricing" element={<Pricing></Pricing>} />
           <Route path="login" element={<Login></Login>} />
           <Route path="tracking" element={<Tracking></Tracking>}>
-            <Route index element={<Navigate to="cities" />} />
+            <Route index element={<Navigate replace to="cities" />} />
             <Route
               path="cities"
               element={<CityList cities={cities} isLoading={isLoading} />}
