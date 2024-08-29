@@ -14,6 +14,7 @@ const flagemojiToPNG = (flag) => {
 
 function CitiesProvider({ children }) {
   const [cities, setCities] = useState([]);
+  const [currentCity, setCurrentCity] = useState({});
   const [countries, setCountries] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -44,8 +45,25 @@ function CitiesProvider({ children }) {
     }
     fetchCities();
   }, []);
+
+  async function getCity(id) {
+    setIsLoading(true);
+    var data = [];
+    try {
+      const res = await fetch(`http://localhost:8000/cities/${id}`);
+      data = await res.json();
+    } catch (err) {
+      console.log(err.message);
+    }
+    data.emoji = flagemojiToPNG(data.emoji);
+    setIsLoading(false);
+    setCurrentCity(data);
+  }
+
   return (
-    <CitiesContext.Provider value={{ cities, countries, isLoading }}>
+    <CitiesContext.Provider
+      value={{ cities, countries, isLoading, getCity, currentCity }}
+    >
       {children}
     </CitiesContext.Provider>
   );
