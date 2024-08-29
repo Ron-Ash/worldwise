@@ -29,3 +29,7 @@ run the following in the terminal
 ### add json-server library
 
 - run `npm install json-server` in terminal
+
+### add leaflet library
+
+- run `npm install react-leaflet leaflet` in terminal
