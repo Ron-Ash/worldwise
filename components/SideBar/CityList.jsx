@@ -1,10 +1,9 @@
+import { useCities } from "../../contexts/CitiesContext";
 import SidebarList from "../SidebarList";
 import CityItem from "./CityItem";
 import styles from "./CityList.module.css";
-
-import PropTypes from "prop-types";
-
-function CityList({ cities, isLoading }) {
+function CityList() {
+  const { cities, isLoading } = useCities();
   return (
     <SidebarList
       items={cities}
@@ -18,7 +17,3 @@ function CityList({ cities, isLoading }) {
 }
 
 export default CityList;
-CityList.propTypes = {
-  cities: PropTypes.array,
-  isLoading: PropTypes.bool,
-};

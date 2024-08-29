@@ -1,10 +1,10 @@
+import { useCities } from "../../contexts/CitiesContext";
 import SidebarList from "../SidebarList";
 import CountryItem from "./CountryItem";
 import styles from "./CountryList.module.css";
 
-import PropTypes from "prop-types";
-
-export default function CountryList({ countries, isLoading }) {
+export default function CountryList() {
+  const { countries, isLoading } = useCities();
   return (
     <SidebarList
       items={countries}
@@ -19,7 +19,3 @@ export default function CountryList({ countries, isLoading }) {
     </SidebarList>
   );
 }
-CountryList.propTypes = {
-  countries: PropTypes.array,
-  isLoading: PropTypes.bool,
-};

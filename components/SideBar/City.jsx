@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
-import PropTypes from "prop-types";
 
 import styles from "./City.module.css";
+import { useCities } from "../../contexts/CitiesContext";
 
 const formatDate = (date) =>
   new Intl.DateTimeFormat("en", {
@@ -11,7 +11,8 @@ const formatDate = (date) =>
     weekday: "long",
   }).format(new Date(date));
 
-export default function City({ cities }) {
+export default function City() {
+  const { cities } = useCities();
   const { id } = useParams();
   const city = cities.filter((city) => city.id === id);
   city.length >= 1 ? city[0] : [];
@@ -51,6 +52,3 @@ export default function City({ cities }) {
     </div>
   );
 }
-City.propTypes = {
-  cities: PropTypes.array,
-};
