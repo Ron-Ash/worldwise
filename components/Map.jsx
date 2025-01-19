@@ -1,25 +1,48 @@
 import { useNavigate, useSearchParams } from "react-router-dom";
 import styles from "./Map.module.css";
+import ButtonStyles from "./Button.module.css";
 
-import { MapContainer, TileLayer, Popup, Marker } from "react-leaflet";
-import { useState } from "react";
+import {
+  MapContainer,
+  TileLayer,
+  Popup,
+  Marker,
+  useMapEvents,
+} from "react-leaflet";
+import { useEffect, useState } from "react";
 import Spinner from "./Spinner";
 import { useCities } from "../contexts/CitiesContext";
+import { useGeoLocation } from "../hooks/useGeoLocation";
+import Button from "./Button";
 
 function Map() {
-  const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
-  const lat = searchParams.get("lat") ?? 40;
-  const lng = searchParams.get("lng") ?? 0;
+  const {
+    isLoading: isLoadingP,
+    getPosition,
+    // position: geoPosition,
+  } = useGeoLocation();
+  const lat = searchParams.get("lat") ?? -68.85262000918985;
+  const lng = searchParams.get("lng") ?? -90.60150146484376;
   const [mapPosition, setMapPosition] = useState([lat, lng]);
   const { cities, isLoading } = useCities();
+
+  useEffect(
+    function () {
+      if (lat && lng) setMapPosition([lat, lng]);
+    },
+    [lat, lng]
+  );
+
   if (isLoading) return <Spinner />;
-  console.log(lat, lng);
   return (
-    <div className={styles.mapContainer} onClick={() => navigate("form")}>
+    <div className={styles.mapContainer}>
+      <Button styles={ButtonStyles} type="position" onClick={getPosition}>
+        {isLoadingP ? "Loading..." : "use your position"}
+      </Button>
       <MapContainer
-        center={[lat, lng]}
-        zoom={6}
+        center={mapPosition}
+        zoom={10}
         scrollWheelZoom={true}
         className={styles.map}
       >
@@ -37,11 +60,18 @@ function Map() {
             </Popup>
           </Marker>
         ))}
+        <DetectClick />
       </MapContainer>
       <button onClick={() => setSearchParams(searchParams)}>DoesNothing</button>
-      <button onClick={() => setMapPosition(mapPosition)}>DoesNothing</button>
     </div>
   );
+}
+
+function DetectClick() {
+  const navigate = useNavigate();
+  useMapEvents({
+    click: (e) => navigate(`form?lat=${e.latlng.lat}&lng=${e.latlng.lng}`),
+  });
 }
 
 export default Map;
